@@ -137,7 +137,6 @@ export function PreviewSong(props) {
             </label>
           </div>
           <div className="radio-container">
-            <label htmlFor="sourceO">ORIGINAL</label>
             <input
               id="sourceO"
               type="radio"
@@ -145,7 +144,7 @@ export function PreviewSong(props) {
               checked={psource === 'ORIGINAL'}
               onChange={onSourceChange}
             />
-            <label htmlFor="sourceC">COVER</label>
+            <label htmlFor="sourceO">ORIGINAL</label>
             <input
               id="sourceC"
               type="radio"
@@ -153,7 +152,7 @@ export function PreviewSong(props) {
               checked={psource === 'COVER'}
               onChange={onSourceChange}
             />
-            <label htmlFor="sourceT">TRADITIONAL</label>
+            <label htmlFor="sourceC">COVER</label>
             <input
               id="sourceT"
               type="radio"
@@ -161,6 +160,7 @@ export function PreviewSong(props) {
               checked={psource === 'TRADITIONAL'}
               onChange={onSourceChange}
             />
+            <label htmlFor="sourceT">TRADITIONAL</label>
           </div>
           {pwriter
           && (
