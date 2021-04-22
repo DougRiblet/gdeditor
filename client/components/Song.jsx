@@ -11,7 +11,7 @@ const CHECK_SONG = gql`
 `;
 
 const ADD_SONG = gql`
-  mutation AddSong($title: String!, $source: String!, $writer: [String]) {
+  mutation AddSong($title: String!, $source: Source!, $writer: [String]) {
     createSong(title: $title, source: $source, writer: $writer) {
       id
       title
@@ -37,7 +37,7 @@ export default function Song() {
 
   return (
     <div id="addsong">
-      <div className="input">
+      <div className="input-pane">
         <form onSubmit={handleSubmit}>
           <h3>Add Many Songs (plain text)</h3>
           <textarea
@@ -49,7 +49,7 @@ export default function Song() {
           <button type="submit">Submit</button>
         </form>
       </div>
-      <div className="preview">
+      <div className="preview-pane">
         {nextsong.title
           && (
             <PreviewSong
@@ -97,17 +97,18 @@ export function PreviewSong(props) {
   const handleFinalSubmit = (e) => {
     e.preventDefault();
     const writerArr = pwriter.split(', ');
-    addSong({
-      variables: {
+    const variables = {
         title: ptitle,
         source: psource,
         writer: writerArr,
-      },
-    });
+    };
+    // eslint-disable-next-line no-console
+    console.log('Variables Submitted: ', variables);
+    addSong({ variables });
   };
 
   if (loading) return <p>Loading</p>;
-  if (error) return <p>Error</p>;
+  if (error) return <p>Error {error.message}</p>;
 
   if (data.songByTitle?.id) {
     return (
@@ -123,62 +124,58 @@ export function PreviewSong(props) {
     return (
       <div>
         <form onSubmit={handleFinalSubmit}>
-          <label htmlFor="title">
-            Title:
+          <div className="title-container">
+            <label htmlFor="title">
+              <span className="input-label">Title:</span>
+              <input
+                type="text"
+                name="title"
+                size="50"
+                value={ptitle}
+                onChange={onTitleChange}
+              />
+            </label>
+          </div>
+          <div className="radio-container">
             <input
-              type="text"
-              name="title"
-              size="50"
-              value={ptitle}
-              onChange={onTitleChange}
+              id="sourceO"
+              type="radio"
+              value="ORIGINAL"
+              checked={psource === 'ORIGINAL'}
+              onChange={onSourceChange}
             />
-          </label>
-          <p>Source:</p>
-          <div className="radio">
-            <label htmlFor="sourceO">
-              <input
-                id="sourceO"
-                type="radio"
-                value="ORIGINAL"
-                checked={ptitle === 'ORIGINAL'}
-                onChange={onSourceChange}
-              />
-            </label>
-          </div>
-          <div className="radio">
-            <label htmlFor="sourceC">
-              <input
-                id="sourceC"
-                type="radio"
-                value="COVER"
-                checked={ptitle === 'COVER'}
-                onChange={onSourceChange}
-              />
-            </label>
-          </div>
-          <div className="radio">
-            <label htmlFor="sourceT">
-              <input
-                id="sourceT"
-                type="radio"
-                value="TRADITIONAL"
-                checked={ptitle === 'TRADITIONAL'}
-                onChange={onSourceChange}
-              />
-            </label>
+            <label htmlFor="sourceO">ORIGINAL</label>
+            <input
+              id="sourceC"
+              type="radio"
+              value="COVER"
+              checked={psource === 'COVER'}
+              onChange={onSourceChange}
+            />
+            <label htmlFor="sourceC">COVER</label>
+            <input
+              id="sourceT"
+              type="radio"
+              value="TRADITIONAL"
+              checked={psource === 'TRADITIONAL'}
+              onChange={onSourceChange}
+            />
+            <label htmlFor="sourceT">TRADITIONAL</label>
           </div>
           {pwriter
           && (
-            <label htmlFor="writer">
-              Writer:
-              <input
-                type="text"
-                name="writer"
-                size="50"
-                value={pwriter}
-                onChange={onWriterChange}
-              />
-            </label>
+            <div className="writer-container">
+              <label htmlFor="writer">
+              <span className="input-label">Writer:</span>
+                <input
+                  type="text"
+                  name="writer"
+                  size="50"
+                  value={pwriter}
+                  onChange={onWriterChange}
+                />
+              </label>
+            </div>
           )}
           <button type="submit">Submit</button>
         </form>
