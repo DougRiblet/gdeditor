@@ -43,7 +43,7 @@ export default function Song() {
           <textarea
             value={tav}
             onChange={(e) => setTav(e.target.value)}
-            cols={80}
+            cols={64}
             rows={20}
           />
           <button type="submit">Submit</button>
@@ -110,7 +110,14 @@ export function PreviewSong(props) {
 
   if (data.songByTitle?.id) {
     const songAlreadyMessage = `Song ${props.title} already in database`;
-    return <p>{songAlreadyMessage}</p>;
+    return (
+      <div>
+        <p>{songAlreadyMessage}</p>
+        <button type="button" onClick={props.clearSongData}>
+          Clear Song Data
+        </button>
+      </div>
+    );
   }
 
   if (!data.songByTitle) {
@@ -130,36 +137,30 @@ export function PreviewSong(props) {
             </label>
           </div>
           <div className="radio-container">
-            <label htmlFor="sourceO">
-              <input
-                id="sourceO"
-                type="radio"
-                value="ORIGINAL"
-                checked={psource === 'ORIGINAL'}
-                onChange={onSourceChange}
-              />
-              ORIGINAL
-            </label>
-            <label htmlFor="sourceC">
-              <input
-                id="sourceC"
-                type="radio"
-                value="COVER"
-                checked={psource === 'COVER'}
-                onChange={onSourceChange}
-              />
-              COVER
-            </label>
-            <label htmlFor="sourceT">
-              <input
-                id="sourceT"
-                type="radio"
-                value="TRADITIONAL"
-                checked={psource === 'TRADITIONAL'}
-                onChange={onSourceChange}
-              />
-              TRADITIONAL
-            </label>
+            <label htmlFor="sourceO">ORIGINAL</label>
+            <input
+              id="sourceO"
+              type="radio"
+              value="ORIGINAL"
+              checked={psource === 'ORIGINAL'}
+              onChange={onSourceChange}
+            />
+            <label htmlFor="sourceC">COVER</label>
+            <input
+              id="sourceC"
+              type="radio"
+              value="COVER"
+              checked={psource === 'COVER'}
+              onChange={onSourceChange}
+            />
+            <label htmlFor="sourceT">TRADITIONAL</label>
+            <input
+              id="sourceT"
+              type="radio"
+              value="TRADITIONAL"
+              checked={psource === 'TRADITIONAL'}
+              onChange={onSourceChange}
+            />
           </div>
           {pwriter
           && (

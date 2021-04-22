@@ -20,6 +20,7 @@
   ],
   "rules": {
       "react/jsx-one-expression-per-line": "off",
-      "import/extensions": "off"
+      "import/extensions": "off",
+      "jsx-a11y/label-has-associated-control": "off"
   }
 }
