@@ -74,7 +74,7 @@ main #addsong .preview-pane .radio-container label {
   display: inline-block;
   background-color: #cccccc;
   color: #666666;
-  font-size: 50%;
+  font-size: 12px;
   padding: 2px 10px;
   margin-right: 10px;
   border: 1px solid #aaaaaa;
@@ -85,6 +85,11 @@ main #addsong .preview-pane .radio-container input[type=radio]:checked + label {
   background-color: #007744;
   color: white;
   border: 1px solid #004427;
+}
+main #addsong .preview-pane .after-submit {
+  margin-top: 30px;
+  padding: 15px;
+  border-top: 1px solid gray;
 }
 
 /*# sourceMappingURL=style.css.map */

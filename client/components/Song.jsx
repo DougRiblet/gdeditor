@@ -28,7 +28,7 @@ export default function Song() {
     const tavArr = tav.split(/\r?\n/).map((x) => x.trim());
     const [title, source, writer] = tavArr.shift().split(' | ');
     setNextsong({ title, source, writer });
-    setTav(tavArr.join(/\n/));
+    setTav(tavArr.join('\n'));
   };
 
   const clearSongData = () => {
@@ -102,8 +102,6 @@ export function PreviewSong(props) {
         source: psource,
         writer: writerArr,
     };
-    // eslint-disable-next-line no-console
-    console.log('Variables Submitted: ', variables);
     addSong({ variables });
   };
 
@@ -179,6 +177,18 @@ export function PreviewSong(props) {
           )}
           <button type="submit">Submit</button>
         </form>
+        <div className="after-submit">
+          {mutationResponse.called
+            && <p>Successfully Submitted!</p>
+          }
+          {mutationResponse.error
+            && <p>Error in Submission</p>
+          }
+          {!mutationResponse.called && !mutationResponse.error
+            && <p></p>
+          }
+          <button onClick={props.clearSongData}>Clear Song Data</button>
+        </div>
       </div>
     );
   }
