@@ -19,7 +19,7 @@
       "react"
   ],
   "rules": {
-      "react/jsx-one-expression-per-line": ["error", { "allow": "single-child" }],
+      "react/jsx-one-expression-per-line": "off",
       "import/extensions": "off"
   }
 }

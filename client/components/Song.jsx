@@ -96,11 +96,11 @@ export function PreviewSong(props) {
 
   const handleFinalSubmit = (e) => {
     e.preventDefault();
-    const writerArr = pwriter.split(', ');
+    const writerArr = pwriter ? pwriter.split(', ') : [];
     const variables = {
-        title: ptitle,
-        source: psource,
-        writer: writerArr,
+      title: ptitle,
+      source: psource,
+      writer: writerArr,
     };
     addSong({ variables });
   };
@@ -109,13 +109,8 @@ export function PreviewSong(props) {
   if (error) return <p>Error {error.message}</p>;
 
   if (data.songByTitle?.id) {
-    return (
-      <p>
-        Song
-        {props.title}
-        already in database
-      </p>
-    );
+    const songAlreadyMessage = `Song ${props.title} already in database`;
+    return <p>{songAlreadyMessage}</p>;
   }
 
   if (!data.songByTitle) {
@@ -135,36 +130,42 @@ export function PreviewSong(props) {
             </label>
           </div>
           <div className="radio-container">
-            <input
-              id="sourceO"
-              type="radio"
-              value="ORIGINAL"
-              checked={psource === 'ORIGINAL'}
-              onChange={onSourceChange}
-            />
-            <label htmlFor="sourceO">ORIGINAL</label>
-            <input
-              id="sourceC"
-              type="radio"
-              value="COVER"
-              checked={psource === 'COVER'}
-              onChange={onSourceChange}
-            />
-            <label htmlFor="sourceC">COVER</label>
-            <input
-              id="sourceT"
-              type="radio"
-              value="TRADITIONAL"
-              checked={psource === 'TRADITIONAL'}
-              onChange={onSourceChange}
-            />
-            <label htmlFor="sourceT">TRADITIONAL</label>
+            <label htmlFor="sourceO">
+              <input
+                id="sourceO"
+                type="radio"
+                value="ORIGINAL"
+                checked={psource === 'ORIGINAL'}
+                onChange={onSourceChange}
+              />
+              ORIGINAL
+            </label>
+            <label htmlFor="sourceC">
+              <input
+                id="sourceC"
+                type="radio"
+                value="COVER"
+                checked={psource === 'COVER'}
+                onChange={onSourceChange}
+              />
+              COVER
+            </label>
+            <label htmlFor="sourceT">
+              <input
+                id="sourceT"
+                type="radio"
+                value="TRADITIONAL"
+                checked={psource === 'TRADITIONAL'}
+                onChange={onSourceChange}
+              />
+              TRADITIONAL
+            </label>
           </div>
           {pwriter
           && (
             <div className="writer-container">
               <label htmlFor="writer">
-              <span className="input-label">Writer:</span>
+                <span className="input-label">Writer:</span>
                 <input
                   type="text"
                   name="writer"
@@ -179,15 +180,14 @@ export function PreviewSong(props) {
         </form>
         <div className="after-submit">
           {mutationResponse.called
-            && <p>Successfully Submitted!</p>
-          }
+            && <p>Successfully Submitted!</p>}
           {mutationResponse.error
-            && <p>Error in Submission</p>
-          }
+            && <p>Error in Submission</p>}
           {!mutationResponse.called && !mutationResponse.error
-            && <p></p>
-          }
-          <button onClick={props.clearSongData}>Clear Song Data</button>
+            && <p />}
+          <button type="button" onClick={props.clearSongData}>
+            Clear Song Data
+          </button>
         </div>
       </div>
     );
