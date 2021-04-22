@@ -11,7 +11,7 @@ const CHECK_SONG = gql`
 `;
 
 const ADD_SONG = gql`
-  mutation AddSong($title: String!, $source: String!, $writer: String[]) {
+  mutation AddSong($title: String!, $source: String!, $writer: [String]) {
     createSong(title: $title, source: $source, writer: $writer) {
       id
       title

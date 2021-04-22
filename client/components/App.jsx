@@ -4,7 +4,7 @@ import Song from './Song.jsx';
 
 export default function App() {
   return (
-    <div>
+    <div id="wrapper">
       <nav>
         <ul>
           <li>

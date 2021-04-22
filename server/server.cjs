@@ -12,6 +12,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
+app.get('/favicon.ico', (req, res) => {
+  res.sendStatus(200);
+});
+
 app.use((req, res) => {
   res.status(404).send('Error 404');
 });

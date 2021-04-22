@@ -3,19 +3,39 @@ body {
   background-color: #fff7ee;
   color: #333333;
   font-size: large;
+  padding: 0px;
+  margin: 0px;
+}
+body #wrapper #root {
+  margin: 0px;
+  padding: 0px;
 }
 
+nav {
+  background-color: #d7d7d7;
+  margin: 0px;
+  padding: 5px 60px;
+}
 nav ul {
   list-style-type: none;
 }
 nav ul li {
-  margin: 10px;
-  padding: 10px;
-  width: 150px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+}
+nav ul li a {
+  background-color: #b7b7b7;
+  padding: 8px 30px;
   border: 1px dashed red;
   border-radius: 5px;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
+main {
+  padding: 10px 60px;
+}
 main #addsong {
   display: grid;
   grid-template-columns: 1fr 1fr;
