@@ -33,7 +33,10 @@ export default function App() {
           <Route path="/song">
             <Song />
           </Route>
-          <Route path="/">
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="*">
             <Home />
           </Route>
         </Switch>

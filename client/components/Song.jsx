@@ -36,7 +36,7 @@ export default function Song() {
   };
 
   return (
-    <div id="addsong">
+    <div className="add-container">
       <div className="input-pane">
         <form onSubmit={handleSubmit}>
           <h3>Add Many Songs (plain text)</h3>
