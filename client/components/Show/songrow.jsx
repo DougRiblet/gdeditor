@@ -1,5 +1,5 @@
-import React from 'react';
-import { gql, useQuery, useEffect } from '@apollo/client';
+import React, { useEffect } from 'react';
+import { gql, useQuery } from '@apollo/client';
 
 const CHECK_SONG_BY_TITLE = gql`
   query CheckSongByTitle($title: String!) {
@@ -11,20 +11,37 @@ const CHECK_SONG_BY_TITLE = gql`
 `;
 
 export default function Songrow(props) {
-  const { data } = useQuery(CHECK_SONG_BY_TITLE, {
+  const { loading, error, data } = useQuery(CHECK_SONG_BY_TITLE, {
     variables: { title: props.songObj.title },
   });
 
-  useEffect(() => {
-    props.addCheckedSong({
-      date: props.songObj.date,
-      position: props.songObj.position,
-      title: data.songByTitle.title,
-      arrow: props.songObj.arrow,
-    });
-  }, [data?.songByTitle?.title]);
+  // useEffect(() => {
+  //   if (data && data.songByTitle && data.songByTitle.title) {
+  //     props.addCheckedSong({
+  //       date: props.songObj.date,
+  //       position: props.songObj.position,
+  //       title: data.songByTitle.title,
+  //       arrow: props.songObj.arrow,
+  //     });
+  //   }
+  // }, [data]);
 
-  if (data.songByTitle.title) {
+  if (loading) return (
+    <tr>
+      <td colSpan="4">
+        Loading
+      </td>
+    </tr>
+  );
+  if (error) return (
+    <tr>
+      <td colSpan="4">
+        Error
+      </td>
+    </tr>
+  );
+
+  if (data.songByTitle?.title) {
     return (
       <tr>
         <td>{props.songObj.date}</td>

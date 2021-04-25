@@ -5,9 +5,15 @@ import Songrow from './songrow.jsx';
 function Showsongs({ addCheckedSong, songsInput }) {
   return (
     <table className="showsongs">
-      {songsInput.map((songObj) => (
-        <Songrow songObj={songObj} addCheckedSong={addCheckedSong} />
-      ))}
+      <tbody>
+        {songsInput.map((songObj) => (
+          <Songrow
+            songObj={songObj}
+            addCheckedSong={addCheckedSong}
+            key={`${songObj.date}_${songObj.position}`}
+          />
+        ))}
+      </tbody>
     </table>
   );
 }

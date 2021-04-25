@@ -15,17 +15,17 @@ export default function Showvenue(props) {
   });
 
   if (loading) return <p>Loading</p>;
-  if (error) return <p>Error {error.message}</p>;
+  if (error) return <p>Error</p>;
 
   if (data) {
     const venueAlreadyMessage = data.venueBySiteCity?.id
-      ? <span style={{ color: 'green' }}>in database</span>
-      : <span style={{ color: 'red' }}>new addition</span>;
+      ? <span style={{ color: 'green' }}>venue in database</span>
+      : <span style={{ color: 'red' }}>new venue addition</span>;
     return (
       <p>
-        <span className="input-label">venue: </span>{props.siteInput}
+        <span className="input-label">site: </span>{props.siteInput}
         <br />
-        <span className="input-label">venue: </span>{props.cityInput}
+        <span className="input-label">city: </span>{props.cityInput}
         <br />
         {venueAlreadyMessage}
       </p>

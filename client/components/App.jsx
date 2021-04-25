@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route, NavLink } from 'react-router-dom';
 import Song from './Song.jsx';
+import Show from './Show/index.jsx';
 
 export default function App() {
   return (
@@ -51,8 +52,4 @@ function Home() {
 
 function Venue() {
   return <h2>Add Venue</h2>;
-}
-
-function Show() {
-  return <h2>Add Show</h2>;
 }

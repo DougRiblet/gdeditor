@@ -79,42 +79,50 @@ export default function Show() {
           <textarea
             value={tav}
             onChange={(e) => setTav(e.target.value)}
-            cols={48}
+            cols={36}
             rows={32}
           />
           <button type="submit">Submit</button>
         </form>
       </div>
       <div className="preview-pane">
-        {showdate
-          && (
-            <Showdate
-              dateInput={showdate}
-            />
-          )}
-        {site && city
-          && (
-            <Showvenue
-              cityInput={city}
-              siteInput={site}
-            />
-          )}
-        {songs.length
-          && (
-            <Showsongs
-              songsInput={songs}
-              addCheckedSong={addCheckedSong}
-            />
-          )}
+        <div className="song-preview-section">
+          {Boolean(showdate)
+            && (
+              <Showdate
+                dateInput={showdate}
+              />
+            )}
+        </div>
+        <div className="song-preview-section">
+          {Boolean(site) && Boolean(city)
+            && (
+              <Showvenue
+                cityInput={city}
+                siteInput={site}
+              />
+            )}
+        </div>
+        <div className="song-preview-section">
+          {Boolean(songs.length)
+            && (
+              <Showsongs
+                songsInput={songs}
+                addCheckedSong={addCheckedSong}
+              />
+            )}
+        </div>
+        {/* <div className="song-preview-section">
+          <p>Songs Input: {songs.length} | Songs Checked: {checkedSongs.length}</p>
+        </div>
         <div className="after-submit">
           <button
             type="button"
             onClick={clearShowData}
-            disable={checkedSongs.length < songs.length}
           >
             Clear Show Data
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
