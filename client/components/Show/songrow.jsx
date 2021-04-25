@@ -13,18 +13,17 @@ const CHECK_SONG_BY_TITLE = gql`
 export default function Songrow(props) {
   const { loading, error, data } = useQuery(CHECK_SONG_BY_TITLE, {
     variables: { title: props.songObj.title },
+    onCompleted: (data) => {
+      if (data.songByTitle?.title) {
+        props.addCheckedSong({
+          date: props.songObj.date,
+          position: props.songObj.position,
+          title: data.songByTitle.title,
+          arrow: props.songObj.arrow,
+        });
+      }
+    }
   });
-
-  // useEffect(() => {
-  //   if (data && data.songByTitle && data.songByTitle.title) {
-  //     props.addCheckedSong({
-  //       date: props.songObj.date,
-  //       position: props.songObj.position,
-  //       title: data.songByTitle.title,
-  //       arrow: props.songObj.arrow,
-  //     });
-  //   }
-  // }, [data]);
 
   if (loading) return (
     <tr>

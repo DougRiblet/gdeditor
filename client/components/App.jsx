@@ -9,7 +9,7 @@ export default function App() {
       <nav>
         <ul>
           <li>
-            <NavLink to="/">Home</NavLink>
+            <NavLink exact to="/">Home</NavLink>
           </li>
           <li>
             <NavLink to="/show">Add Show</NavLink>
@@ -34,7 +34,7 @@ export default function App() {
           <Route path="/song">
             <Song />
           </Route>
-          <Route exact path="/">
+          <Route path="/">
             <Home />
           </Route>
           <Route path="*">

@@ -112,7 +112,7 @@ export default function Show() {
               />
             )}
         </div>
-        {/* <div className="song-preview-section">
+        <div className="song-preview-section">
           <p>Songs Input: {songs.length} | Songs Checked: {checkedSongs.length}</p>
         </div>
         <div className="after-submit">
@@ -122,7 +122,7 @@ export default function Show() {
           >
             Clear Show Data
           </button>
-        </div> */}
+        </div>
       </div>
     </div>
   );
