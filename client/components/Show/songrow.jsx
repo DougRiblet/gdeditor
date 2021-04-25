@@ -13,6 +13,7 @@ const CHECK_SONG_BY_TITLE = gql`
 export default function Songrow(props) {
   const { loading, error, data } = useQuery(CHECK_SONG_BY_TITLE, {
     variables: { title: props.songObj.title },
+    fetchPolicy: 'network-only',
     onCompleted: (data) => {
       if (data.songByTitle?.title) {
         props.addCheckedSong({

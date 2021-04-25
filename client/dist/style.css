@@ -88,7 +88,7 @@ main .add-container .preview-pane .radio-container input[type=radio]:checked + l
   border: 1px solid #004427;
 }
 main .add-container .preview-pane .song-preview-section {
-  padding: 24px 0px;
+  padding: 4px 0px;
   border-bottom: 1px solid #7799cc;
 }
 main .add-container .preview-pane .after-submit {
