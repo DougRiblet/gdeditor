@@ -1,5 +1,5 @@
 import React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useEffect } from '@apollo/client';
 
 const CHECK_SONG_BY_TITLE = gql`
   query CheckSongByTitle($title: String!) {
@@ -14,6 +14,15 @@ export default function Songrow(props) {
   const { data } = useQuery(CHECK_SONG_BY_TITLE, {
     variables: { title: props.songObj.title },
   });
+
+  useEffect(() => {
+    props.addCheckedSong({
+      date: props.songObj.date,
+      position: props.songObj.position,
+      title: data.songByTitle.title,
+      arrow: props.songObj.arrow,
+    });
+  }, [data?.songByTitle?.title]);
 
   if (data.songByTitle.title) {
     return (

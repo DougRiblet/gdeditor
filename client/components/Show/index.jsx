@@ -10,6 +10,11 @@ export default function Show() {
   const [site, setSite] = useState('');
   const [city, setCity] = useState('');
   const [songs, setSongs] = useState([]);
+  const [checkedSongs, setCheckedSongs] = useState([]);
+
+  const addCheckedSong = (songObj) => {
+    setCheckedSongs(checkedSongs.concat(songObj));
+  };
 
   const processSongData = (songArr, dateStr) => {
     const outputArr = [];
@@ -63,6 +68,7 @@ export default function Show() {
     setSite('');
     setCity('');
     setSongs([]);
+    setCheckedSongs([]);
   };
 
   return (
@@ -84,7 +90,6 @@ export default function Show() {
           && (
             <Showdate
               dateInput={showdate}
-              clearShowDate={clearShowData}
             />
           )}
         {site && city
@@ -98,10 +103,15 @@ export default function Show() {
           && (
             <Showsongs
               songsInput={songs}
+              addCheckedSong={addCheckedSong}
             />
           )}
         <div className="after-submit">
-          <button type="button" onClick={clearShowData}>
+          <button
+            type="button"
+            onClick={clearShowData}
+            disable={checkedSongs.length < songs.length}
+          >
             Clear Show Data
           </button>
         </div>
