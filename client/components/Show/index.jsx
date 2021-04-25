@@ -1,10 +1,31 @@
 import React, { useState } from 'react';
-
+import { gql, useMutation } from '@apollo/client';
 import Showvenue from './showvenue.jsx';
 import Showdate from './showdate.jsx';
 import Showsongs from './showsongs.jsx';
 
+const ADD_SHOW = gql`
+  mutation AddShow($date: String!, $site: String!, $city: String!) {
+    createSong(date: $date, site: $site, city: $city) {
+      id
+    }
+  }
+`;
+
+const ADD_TRACKS = gql`
+  mutation AddTracks($tracks: [TrackInput]!) {
+    createTracks(tracks: $tracks) {
+      count
+    }
+  }
+`;
+
 export default function Show() {
+  // eslint-disable-next-line no-unused-vars
+  const [addShow, showMutationResponse] = useMutation(ADD_SHOW);
+  // eslint-disable-next-line no-unused-vars
+  const [addTracks, tracksMutationResponse] = useMutation(ADD_TRACKS);
+
   const [tav, setTav] = useState('');
   const [showdate, setShowdate] = useState('');
   const [site, setSite] = useState('');
@@ -71,6 +92,17 @@ export default function Show() {
     setCheckedSongs([]);
   };
 
+  const handleFinalSubmit = () => {
+    addShow({
+      variables: { date: showdate, site, city },
+      onCompleted: () => {
+        addTracks({
+          variables: { tracks: checkedSongs },
+        });
+      },
+    });
+  };
+
   return (
     <div className="add-container">
       <div className="input-pane">
@@ -116,11 +148,13 @@ export default function Show() {
           <p>Songs Input: {songs.length} | Songs Checked: {checkedSongs.length}</p>
         </div>
         <div className="after-submit">
-          <button
-            type="button"
-            onClick={clearShowData}
-          >
+          <button type="button" onClick={clearShowData}>
             Clear Show Data
+          </button>
+        </div>
+        <div className="after-submit">
+          <button type="button" onClick={handleFinalSubmit}>
+            Submit Show Data
           </button>
         </div>
       </div>

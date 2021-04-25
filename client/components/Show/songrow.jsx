@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { gql, useQuery } from '@apollo/client';
 
 const CHECK_SONG_BY_TITLE = gql`
@@ -14,32 +14,36 @@ export default function Songrow(props) {
   const { loading, error, data } = useQuery(CHECK_SONG_BY_TITLE, {
     variables: { title: props.songObj.title },
     fetchPolicy: 'network-only',
-    onCompleted: (data) => {
-      if (data.songByTitle?.title) {
+    onCompleted: (datafetched) => {
+      if (datafetched.songByTitle?.title) {
         props.addCheckedSong({
-          date: props.songObj.date,
+          showDate: props.songObj.date,
           position: props.songObj.position,
-          title: data.songByTitle.title,
+          songTitle: datafetched.songByTitle.title,
           arrow: props.songObj.arrow,
         });
       }
-    }
+    },
   });
 
-  if (loading) return (
-    <tr>
-      <td colSpan="4">
-        Loading
-      </td>
-    </tr>
-  );
-  if (error) return (
-    <tr>
-      <td colSpan="4">
-        Error
-      </td>
-    </tr>
-  );
+  if (loading) {
+    return (
+      <tr>
+        <td colSpan="4">
+          Loading
+        </td>
+      </tr>
+    );
+  }
+  if (error) {
+    return (
+      <tr>
+        <td colSpan="4">
+          Error
+        </td>
+      </tr>
+    );
+  }
 
   if (data.songByTitle?.title) {
     return (
