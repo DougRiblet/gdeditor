@@ -167,7 +167,7 @@ export default function Show() {
           {showMutationResponse.called
             && <p>Show Successfully Submitted!</p>}
           {tracksMutationResponse.called
-            && <p>{tracksMutationResponse.data?.count} Tracks Successfully Submitted!</p>}
+            && <p>Tracks Successfully Submitted!</p>}
           {tracksMutationResponse.error
             && <p>Error in Tracks Submission</p>}
         </div>

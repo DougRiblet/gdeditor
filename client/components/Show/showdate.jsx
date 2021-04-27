@@ -9,20 +9,21 @@ const CHECK_DATE = gql`
   }
 `;
 
-export default function Showdate(props) {
+export default function Showdate({ dateInput }) {
   const { loading, error, data } = useQuery(CHECK_DATE, {
-    variables: { date: props.dateInput },
+    variables: { date: dateInput },
+    fetchPolicy: 'network-only',
   });
 
   if (loading) return <p>Loading</p>;
   if (error) return <p>Error</p>;
 
   if (data.show?.id) {
-    const showAlreadyMessage = `Show on ${props.dateInput} already in database`;
+    const showAlreadyMessage = `Show on ${dateInput} already in database`;
     return <p>{showAlreadyMessage}</p>;
   }
 
   if (!data.show) {
-    return <p><span className="input-label">date: </span>{props.dateInput}</p>;
+    return <p><span className="input-label">date: </span>{dateInput}</p>;
   }
 }
