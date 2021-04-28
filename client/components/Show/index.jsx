@@ -32,10 +32,15 @@ export default function Show() {
   const [city, setCity] = useState('');
   const [songs, setSongs] = useState([]);
   const [checkedSongs, setCheckedSongs] = useState([]);
+  const [showDataSubmitted, setShowDataSubmitted] = useState(false);
 
   const addCheckedSong = (songObj) => {
     setCheckedSongs(checkedSongs.concat(songObj));
   };
+
+  const markShowDataSubmitted = () => {
+    setShowDataSubmitted(true);
+  }
 
   const processSongData = (songArr, dateStr) => {
     const outputArr = [];
@@ -90,12 +95,14 @@ export default function Show() {
     setCity('');
     setSongs([]);
     setCheckedSongs([]);
+    setShowDataSubmitted(false);
   };
 
   const handleFinalSubmit = () => {
     addShow({
       variables: { date: showdate, site, city },
     });
+    markShowDataSubmitted();
   };
 
   const handleTracksSubmit = () => {
@@ -119,57 +126,61 @@ export default function Show() {
         </form>
       </div>
       <div className="preview-pane">
-        <div className="song-preview-section">
-          {Boolean(showdate)
-            && (
-              <Showdate
-                dateInput={showdate}
-              />
-            )}
-        </div>
-        <div className="song-preview-section">
-          {Boolean(site) && Boolean(city)
-            && (
-              <Showvenue
-                cityInput={city}
-                siteInput={site}
-              />
-            )}
-        </div>
-        <div className="song-preview-section">
-          {Boolean(songs.length)
-            && (
-              <Showsongs
-                songsInput={songs}
-                addCheckedSong={addCheckedSong}
-              />
-            )}
-        </div>
-        <div className="song-preview-section">
-          <p>Songs Input: {songs.length} | Songs Checked: {checkedSongs.length}</p>
-        </div>
-        <div className="after-submit">
-          <button type="button" onClick={clearShowData}>
-            Clear Show Data
-          </button>
-        </div>
-        <div className="after-submit">
-          <button type="button" onClick={handleFinalSubmit}>
-            Submit Show Data
-          </button>
-        </div>
-        <div className="after-submit">
-          <button type="button" onClick={handleTracksSubmit}>
-            Submit Tracks Data
-          </button>
-        </div>
-        <div className="after-submit">
-          {showMutationResponse.called
-            && <p>Show Successfully Submitted!</p>}
-          {tracksMutationResponse.called
-            && <p>Tracks Successfully Submitted!</p>}
-          {tracksMutationResponse.error
-            && <p>Error in Tracks Submission</p>}
+        <div className="show-preview-container">
+          <div className="show-preview-data">
+            <div className="preview-section">
+              {Boolean(showdate)
+                && (
+                  <Showdate
+                    dateInput={showdate}
+                  />
+                )}
+            </div>
+            <div className="preview-section">
+              {Boolean(site) && Boolean(city)
+                && (
+                  <Showvenue
+                    cityInput={city}
+                    siteInput={site}
+                  />
+                )}
+            </div>
+            <div className="preview-section">
+              <p>Songs Input: {songs.length} | Songs Checked: {checkedSongs.length}</p>
+            </div>
+            <div className="preview-section">
+              <button type="button" onClick={handleFinalSubmit}>
+                Submit Show Data
+              </button>
+            </div>
+            <div className="preview-section">
+              <button type="button" disabled={!showDataSubmitted} onClick={handleTracksSubmit}>
+                Submit Tracks Data
+              </button>
+            </div>
+            <div className="preview-section">
+              {showMutationResponse.called
+                && <p>Show Successfully Submitted!</p>}
+              {tracksMutationResponse.called
+                && <p>Tracks Successfully Submitted!</p>}
+              {tracksMutationResponse.error
+                && <p>Error in Tracks Submission</p>}
+            </div>
+            <div className="preview-section">
+              <button type="button" onClick={clearShowData}>
+                Clear Show Data
+              </button>
+            </div>
+          </div>
+          <div className="show-preview-setlist">
+            {Boolean(songs.length)
+              && (
+                <Showsongs
+                  songsInput={songs}
+                  addCheckedSong={addCheckedSong}
+                />
+              )}
+          </div>
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@ const CHECK_VENUE = gql`
 export default function Showvenue(props) {
   const { loading, error, data } = useQuery(CHECK_VENUE, {
     variables: { site: props.siteInput, city: props.cityInput },
+    fetchPolicy: 'network-only',
   });
 
   if (loading) return <p>Loading</p>;

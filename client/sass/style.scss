@@ -42,7 +42,7 @@ main {
   padding: 10px 60px;
   .add-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 2fr;
     column-gap: 40px;
     .preview-pane {
       input[type=text] {
@@ -61,6 +61,12 @@ main {
       button {
         margin-top: 25px;
         cursor: pointer;
+        &:disabled {
+          color: grey;
+          opacity: 0.7;
+          cursor: default;
+        }
+      
       }
       .radio-container {
         margin: 25px 0px;
@@ -86,7 +92,7 @@ main {
           border: 1px solid #004427;
         }
       }
-      .song-preview-section {
+      .preview-section {
         padding: 4px 0px;
         border-bottom: 1px solid #7799cc;
       }
@@ -94,6 +100,21 @@ main {
         margin-top: 30px;
         padding: 15px;
         border-top: 1px solid gray;
+      }
+      .show-preview-container {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        column-gap: 20px;
+        .show-preview-setlist table {
+          border-collapse: collapse;
+          border: none;
+          tr:nth-child(even) {
+            background-color: #d4d4d4;
+          }
+          td {
+            padding: 4px 8px;
+          }
+        }
       }
     }
   }
