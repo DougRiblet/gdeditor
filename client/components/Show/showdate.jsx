@@ -9,7 +9,7 @@ const CHECK_DATE = gql`
   }
 `;
 
-export default function Showdate({ dateInput }) {
+export default function Showdate({ dateInput, dateValid }) {
   const { loading, error, data } = useQuery(CHECK_DATE, {
     variables: { date: dateInput },
     fetchPolicy: 'network-only',
@@ -23,7 +23,17 @@ export default function Showdate({ dateInput }) {
     return <p>{showAlreadyMessage}</p>;
   }
 
-  if (!data.show) {
+  if (!data.show && dateValid) {
     return <p><span className="input-label">date: </span>{dateInput}</p>;
+  }
+
+  if (!data.show && !dateValid) {
+    return (
+      <p>
+        <span className="input-label">date: </span>{dateInput}
+        <br />
+        <span style={{ color: 'red' }}>Invalid Date Format!</span>
+      </p>
+    );
   }
 }

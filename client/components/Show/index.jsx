@@ -33,6 +33,7 @@ export default function Show() {
   const [songs, setSongs] = useState([]);
   const [checkedSongs, setCheckedSongs] = useState([]);
   const [showDataSubmitted, setShowDataSubmitted] = useState(false);
+  const [dateValid, setDateValid] = useState(true);
 
   const addCheckedSong = (songObj) => {
     setCheckedSongs(checkedSongs.concat(songObj));
@@ -40,7 +41,17 @@ export default function Show() {
 
   const markShowDataSubmitted = () => {
     setShowDataSubmitted(true);
-  }
+  };
+
+  const checkDateFormat = (str) => {
+    const segA = Number(str.slice(0, 2));
+    const a = Number.isInteger(segA) && segA > 64 && segA < 96;
+    const segB = Number(str.slice(2, 4));
+    const b = Number.isInteger(segB) && segB > 0 && segB < 13;
+    const segC = Number(str.slice(4, 6));
+    const c = Number.isInteger(segC) && segC > 0 && segC < 32;
+    return (a && b && c && str.length === 6);
+  };
 
   const processSongData = (songArr, dateStr) => {
     const outputArr = [];
@@ -84,6 +95,7 @@ export default function Show() {
     const songlist = processSongData(songlines, dateline);
 
     setShowdate(dateline);
+    setDateValid(checkDateFormat(dateline));
     setSite(siteline);
     setCity(cityline);
     setSongs(songlist);
@@ -96,6 +108,7 @@ export default function Show() {
     setSongs([]);
     setCheckedSongs([]);
     setShowDataSubmitted(false);
+    setDateValid(true);
   };
 
   const handleFinalSubmit = () => {
@@ -133,6 +146,7 @@ export default function Show() {
                 && (
                   <Showdate
                     dateInput={showdate}
+                    dateValid={dateValid}
                   />
                 )}
             </div>
@@ -146,15 +160,19 @@ export default function Show() {
                 )}
             </div>
             <div className="preview-section">
-              <p>Songs Input: {songs.length} | Songs Checked: {checkedSongs.length}</p>
+              <p>Songs Input: {songs.length}<br />Songs Checked: {checkedSongs.length}</p>
             </div>
             <div className="preview-section">
-              <button type="button" onClick={handleFinalSubmit}>
+              <button
+                type="button"
+                onClick={handleFinalSubmit}
+                disabled={!dateValid}
+              >
                 Submit Show Data
               </button>
             </div>
             <div className="preview-section">
-              <button type="button" disabled={!showDataSubmitted} onClick={handleTracksSubmit}>
+              <button type="button" disabled={!showDataSubmitted | !dateValid} onClick={handleTracksSubmit}>
                 Submit Tracks Data
               </button>
             </div>
