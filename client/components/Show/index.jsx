@@ -116,7 +116,7 @@ export default function Show() {
     setSongs([]);
     setCheckedSongs([]);
     setShowDataSubmitted(false);
-    setDateValid(true);
+    setDateValid(false);
   };
 
   const handleFinalSubmit = () => {
