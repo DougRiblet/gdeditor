@@ -21,6 +21,7 @@ export default function Songrow(props) {
           position: props.songObj.position,
           songTitle: datafetched.songByTitle.title,
           arrow: props.songObj.arrow,
+          reprise: props.songObj.reprise,
         });
       }
     },
@@ -29,7 +30,7 @@ export default function Songrow(props) {
   if (loading) {
     return (
       <tr>
-        <td colSpan="4">
+        <td colSpan="5">
           Loading
         </td>
       </tr>
@@ -38,7 +39,7 @@ export default function Songrow(props) {
   if (error) {
     return (
       <tr>
-        <td colSpan="4">
+        <td colSpan="5">
           Error
         </td>
       </tr>
@@ -52,6 +53,7 @@ export default function Songrow(props) {
         <td>{props.songObj.position}</td>
         <td>{data.songByTitle.title}</td>
         <td>{props.songObj.arrow ? '>' : ''}</td>
+        <td>{props.songObj.reprise ? 'R' : ''}</td>
       </tr>
     );
   }

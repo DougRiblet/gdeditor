@@ -33,7 +33,7 @@ export default function Show() {
   const [songs, setSongs] = useState([]);
   const [checkedSongs, setCheckedSongs] = useState([]);
   const [showDataSubmitted, setShowDataSubmitted] = useState(false);
-  const [dateValid, setDateValid] = useState(true);
+  const [dateValid, setDateValid] = useState(false);
 
   const addCheckedSong = (songObj) => {
     setCheckedSongs(checkedSongs.concat(songObj));
@@ -58,20 +58,28 @@ export default function Show() {
     let setCount = 1;
     const setNums = { 1: '1', 2: '2', 3: 'e' };
     let trackCount = 1;
+    const repriseCheck = { 'Sunshine Daydream': true };
 
     while (songArr.length) {
       let songline = songArr[0];
       let songarrow = false;
+      let songreprise = false;
       if (songline.length > 1) {
         if (songline.endsWith('>')) {
           songarrow = true;
           songline = songline.replace(/\s?>$/, '');
+        }
+        if (repriseCheck[songline]) {
+          songreprise = true;
+        } else {
+          repriseCheck[songline] = true;
         }
         const trackObj = {
           position: `${setNums[setCount]}${trackCount < 10 ? '0' : ''}${trackCount}`,
           title: songline,
           date: dateStr,
           arrow: songarrow,
+          reprise: songreprise,
         };
         outputArr.push(trackObj);
         trackCount += 1;
@@ -172,7 +180,7 @@ export default function Show() {
               </button>
             </div>
             <div className="preview-section">
-              <button type="button" disabled={!showDataSubmitted | !dateValid} onClick={handleTracksSubmit}>
+              <button type="button" disabled={!showDataSubmitted || !dateValid} onClick={handleTracksSubmit}>
                 Submit Tracks Data
               </button>
             </div>

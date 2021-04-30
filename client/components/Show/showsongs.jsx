@@ -25,6 +25,7 @@ Showsongs.propTypes = {
     position: PropTypes.string,
     date: PropTypes.string,
     arrow: PropTypes.bool,
+    reprise: PropTypes.bool,
   })).isRequired,
 };
 
