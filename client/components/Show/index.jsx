@@ -136,12 +136,11 @@ export default function Show() {
     <div className="add-container">
       <div className="input-pane">
         <form onSubmit={handleSubmit}>
-          <h3>Add Show Data (plain text)</h3>
           <textarea
             value={tav}
             onChange={(e) => setTav(e.target.value)}
-            cols={36}
-            rows={32}
+            cols={38}
+            rows={30}
           />
           <button type="submit">Submit</button>
         </form>
