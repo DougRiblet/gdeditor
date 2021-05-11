@@ -46,6 +46,20 @@ main .add-container {
   grid-template-columns: 1fr 2fr;
   column-gap: 40px;
 }
+main .add-container .input-pane select {
+  display: block;
+  margin: 6px 0px;
+  padding: 3px;
+  background-color: #ccd7ff;
+}
+main .add-container .input-pane textarea {
+  display: block;
+  margin: 6px 0px;
+}
+main .add-container .input-pane button {
+  display: block;
+  margin: 6px 0px;
+}
 main .add-container .preview-pane input[type=text] {
   padding: 4px;
   margin: 4px;

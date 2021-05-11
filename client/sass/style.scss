@@ -44,6 +44,22 @@ main {
     display: grid;
     grid-template-columns: 1fr 2fr;
     column-gap: 40px;
+    .input-pane {
+      select {
+        display: block;
+        margin: 6px 0px;
+        padding: 3px;
+        background-color: #ccd7ff;
+      }
+      textarea {
+        display: block;
+        margin: 6px 0px;
+      }
+      button {
+        display: block;
+        margin: 6px 0px;
+      }
+    }
     .preview-pane {
       input[type=text] {
         padding: 4px;

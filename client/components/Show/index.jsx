@@ -5,8 +5,8 @@ import Showdate from './showdate.jsx';
 import Showsongs from './showsongs.jsx';
 
 const ADD_SHOW = gql`
-  mutation AddShow($date: String!, $site: String!, $city: String!) {
-    createShow(date: $date, site: $site, city: $city) {
+  mutation AddShow($show: CreateShowInput!) {
+    createShow(show: $show) {
       id
     }
   }
@@ -27,6 +27,7 @@ export default function Show() {
   const [addTracks, tracksMutationResponse] = useMutation(ADD_TRACKS);
 
   const [tav, setTav] = useState('');
+  const [layout, setLayout] = useState('S1_S2');
   const [showdate, setShowdate] = useState('');
   const [site, setSite] = useState('');
   const [city, setCity] = useState('');
@@ -53,10 +54,22 @@ export default function Show() {
     return (a && b && c && str.length === 6);
   };
 
+  /* eslint-disable object-curly-newline */
+  const layoutPrefixes = {
+    S1_S2: { 1: '1', 2: '2', 3: 'e' },
+    S1_S2_S3: { 1: '1', 2: '2', 3: '3', 4: 'e' },
+    S1_PN_S2: { 1: '1', 2: 'n', 3: '2', 4: 'e' },
+    S1_S2_PN_S3: { 1: '1', 2: '2', 3: 'n', 4: '3', 5: 'e' },
+    S1_PN_S2_S3: { 1: '1', 2: 'n', 3: '2', 4: '3', 5: 'e' },
+    S1_PNS2: { 1: '1', 2: '2', 3: 'e' },
+    S1_PNS2_S3: { 1: '1', 2: '2', 3: '3', 4: 'e' },
+  };
+  /* eslint-enable object-curly-newline */
+
   const processSongData = (songArr, dateStr) => {
     const outputArr = [];
     let setCount = 1;
-    const setNums = { 1: '1', 2: '2', 3: 'e' };
+    const setNums = layoutPrefixes[layout];
     let trackCount = 1;
     const repriseCheck = { 'Sunshine Daydream': true };
 
@@ -93,6 +106,10 @@ export default function Show() {
     return outputArr;
   };
 
+  const handleLayoutChange = (e) => {
+    setLayout(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const tavArr = tav.split(/\r?\n/).map((x) => x.trim());
@@ -120,8 +137,14 @@ export default function Show() {
   };
 
   const handleFinalSubmit = () => {
+    const showInfo = {
+      date: showdate,
+      site,
+      city,
+      layout,
+    };
     addShow({
-      variables: { date: showdate, site, city },
+      variables: { show: showInfo },
     });
     markShowDataSubmitted();
   };
@@ -136,6 +159,15 @@ export default function Show() {
     <div className="add-container">
       <div className="input-pane">
         <form onSubmit={handleSubmit}>
+          <select value={layout} onChange={handleLayoutChange}>
+            <option value="S1_S2">S1_S2</option>
+            <option value="S1_S2_S3">S1_S2_S3</option>
+            <option value="S1_PN_S2">S1_PN_S2</option>
+            <option value="S1_S2_PN_S3">S1_S2_PN_S3</option>
+            <option value="S1_PN_S2_S3">S1_PN_S2_S3</option>
+            <option value="S1_PNS2">S1_PNS2</option>
+            <option value="S1_PNS2_S3">S1_PNS2_S3</option>
+          </select>
           <textarea
             value={tav}
             onChange={(e) => setTav(e.target.value)}
