@@ -51,13 +51,14 @@ export default function Show() {
     const b = Number.isInteger(segB) && segB > 0 && segB < 13;
     const segC = Number(str.slice(4, 6));
     const c = Number.isInteger(segC) && segC > 0 && segC < 32;
-    return (a && b && c && str.length === 6);
+    return (a && b && c);
   };
 
   /* eslint-disable object-curly-newline */
   const layoutPrefixes = {
     S1_S2: { 1: '1', 2: '2', 3: 'e' },
     S1_S2_S3: { 1: '1', 2: '2', 3: '3', 4: 'e' },
+    S1: { 1: '1', 2: 'e' },
     S1_PN_S2: { 1: '1', 2: 'n', 3: '2', 4: 'e' },
     S1_S2_PN_S3: { 1: '1', 2: '2', 3: 'n', 4: '3', 5: 'e' },
     S1_PN_S2_S3: { 1: '1', 2: 'n', 3: '2', 4: '3', 5: 'e' },
@@ -162,17 +163,18 @@ export default function Show() {
           <select value={layout} onChange={handleLayoutChange}>
             <option value="S1_S2">S1_S2</option>
             <option value="S1_S2_S3">S1_S2_S3</option>
-            <option value="S1_PN_S2">S1_PN_S2</option>
+            <option value="S1">S1</option>
+            {/* <option value="S1_PN_S2">S1_PN_S2</option>
             <option value="S1_S2_PN_S3">S1_S2_PN_S3</option>
             <option value="S1_PN_S2_S3">S1_PN_S2_S3</option>
             <option value="S1_PNS2">S1_PNS2</option>
-            <option value="S1_PNS2_S3">S1_PNS2_S3</option>
+            <option value="S1_PNS2_S3">S1_PNS2_S3</option> */}
           </select>
           <textarea
             value={tav}
             onChange={(e) => setTav(e.target.value)}
             cols={38}
-            rows={30}
+            rows={36}
           />
           <button type="submit">Submit</button>
         </form>
