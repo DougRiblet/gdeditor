@@ -142,7 +142,7 @@ export default function Show() {
       date: showdate,
       site,
       city,
-      layout,
+      setshape: layout,
     };
     addShow({
       variables: { show: showInfo },
