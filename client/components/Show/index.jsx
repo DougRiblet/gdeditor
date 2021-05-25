@@ -164,6 +164,7 @@ export default function Show() {
             <option value="S1_S2">S1_S2</option>
             <option value="S1_S2_S3">S1_S2_S3</option>
             <option value="S1">S1</option>
+            <option value="UNK">UNK</option>
             {/* <option value="S1_PN_S2">S1_PN_S2</option>
             <option value="S1_S2_PN_S3">S1_S2_PN_S3</option>
             <option value="S1_PN_S2_S3">S1_PN_S2_S3</option>
