@@ -27,7 +27,7 @@ export default function Show() {
   const [addTracks, tracksMutationResponse] = useMutation(ADD_TRACKS);
 
   const [tav, setTav] = useState('');
-  const [layout, setLayout] = useState('S1_S2');
+  const [layout, setLayout] = useState('UNK');
   const [showdate, setShowdate] = useState('');
   const [site, setSite] = useState('');
   const [city, setCity] = useState('');
@@ -161,10 +161,10 @@ export default function Show() {
       <div className="input-pane">
         <form onSubmit={handleSubmit}>
           <select value={layout} onChange={handleLayoutChange}>
+            <option value="UNK">UNK</option>
+            <option value="S1">S1</option>
             <option value="S1_S2">S1_S2</option>
             <option value="S1_S2_S3">S1_S2_S3</option>
-            <option value="S1">S1</option>
-            <option value="UNK">UNK</option>
             {/* <option value="S1_PN_S2">S1_PN_S2</option>
             <option value="S1_S2_PN_S3">S1_S2_PN_S3</option>
             <option value="S1_PN_S2_S3">S1_PN_S2_S3</option>
@@ -175,7 +175,7 @@ export default function Show() {
             value={tav}
             onChange={(e) => setTav(e.target.value)}
             cols={38}
-            rows={36}
+            rows={28}
           />
           <button type="submit">Submit</button>
         </form>
